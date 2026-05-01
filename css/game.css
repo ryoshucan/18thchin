@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top, #251040 0%, #07020d 100%);
+            color: #ebd9ff;
+            height: 100vh; width: 100vw;
+            overflow: hidden; position: relative;
+            -webkit-tap-highlight-color: transparent; 
+            touch-action: none; 
+            user-select: none;
+        }
+
+        body::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(#ffffff 1px, transparent 1px);
+            background-size: 30px 30px; opacity: 0.05; z-index: 0; pointer-events: none;
+        }
+
+        .game-header { position: absolute; top: 15px; width: 100%; text-align: center; z-index: 10; }
+        h1 { font-family: 'Caveat', cursive; font-size: 2.5rem; color: #ffffff; text-shadow: 0 0 10px #b05cff, 0 0 20px #9013fe; margin-bottom: 5px; }
+        p { font-size: 0.9rem; color: #d4b3ff; }
+        
+        .stats-container { display: flex; justify-content: center; gap: 30px; margin-top: 5px; }
+        #score-board { font-size: 1.2rem; font-weight: 600; color: #ff2a5f; text-shadow: 0 0 10px rgba(255,42,95,0.5); }
+        #lives-board { font-size: 1.2rem; font-weight: 600; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+
+        #game-area { position: relative; width: 100%; height: 100%; z-index: 5; overflow: hidden; }
+
+        /* =========================================
+           KARAKTER SPRITE AVATAR (DIPISAH FILE)
+           ========================================= */
+        #player-container {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 150px; height: 150px; 
+            overflow: hidden; z-index: 10;
+            transition: transform 0.1s ease;
+        }
+
+        #player-sprite {
+            width: 150px; height: 150px; 
+            
+            /* background-image DIHAPUS dari sini karena akan dipanggil di class masing-masing */
+            
+            background-repeat: no-repeat;
+            filter: drop-shadow(0 0 10px rgba(176, 92, 255, 0.4));
+        }
+
+        /* Animasi pergeseran frame tetap sama (skala 1600px) */
+        @keyframes playSprite {
+            from { background-position-x: 0px; }
+            to { background-position-x: -2400px; }
+        }
+
+        /* --- PENGATURAN FILE GAMBAR UNTUK MASING-MASING STATUS --- */
+
+        .idle {
+            /* Panggil file khusus diam */
+            background-image: url('../img/sprite_idle.png'); 
+            background-size: 2400px 150px; 
+            animation: playSprite 0.6s steps(16) infinite;
+            transform: scaleX(1);
+        }
+
+        .run-right {
+            /* Panggil file khusus lari */
+            background-image: url('../img/sprite_run.png'); 
+            background-size: 2400px 150px; 
+            animation: playSprite 0.4s steps(16) infinite;
+            transform: scaleX(1); 
+        }
+
+        .run-left {
+            /* Panggil file khusus lari */
+            background-image: url('../img/sprite_run.png'); 
+            background-size: 2400px 150px; 
+            animation: playSprite 0.4s steps(16) infinite;
+            transform: scaleX(-1); /* Balik arah gambar saat ke kiri */
+        }
+
+        /* =========================================
+           ANIMASI SAPI MELEDAK DI LAYAR GAME OVER
+           ========================================= */
+        .bom-avatar {
+            width: 150px; 
+            height: 150px;
+            margin: 10px auto 20px auto;
+            background-image: url('../img/bomsapi.png'); 
+            background-size: 2400px 150px; 
+            background-repeat: no-repeat;
+            
+            /* Animasi HAPUS dari sini, kita pindahkan ke bawah */
+            filter: drop-shadow(0 0 15px rgba(255, 42, 95, 0.8));
+            
+            /* Set posisi awal di frame 1 */
+            background-position-x: 0px; 
+        }
+
+        /* PERBAIKAN 1: Animasi HANYA berjalan jika class .hidden dicabut dari layar gameover */
+        #gameover-screen:not(.hidden) .bom-avatar {
+            /* PERBAIKAN 2: Gunakan 15 steps (langkah) untuk berhenti pas di frame ke-16 */
+            animation: explodeX 1.2s steps(13) infinite; 
+        }
+
+        @keyframes explodeX { 
+            from { background-position-x: 0px; } 
+            /* Berhenti di titik -2250px (Frame terakhir sapi terkapar) */
+            to { background-position-x: -2250px; } 
+        }
+
+        /* Geser posisi X sejauh total ukuran gambar (2400px) */
+        @keyframes explodeX { 
+            from { background-position-x: 0px; } 
+            to { background-position-x: -1950px; } 
+        }
+
+        /* =========================================
+           ANIMASI SAPI MENANG Bawa Kue (16 Frame)
+           ========================================= */
+        .win-avatar {
+            width: 150px; 
+            height: 150px;
+            margin: 10px auto 20px auto;
+            
+            /* Panggil file gambar baru kamu */
+            background-image: url('../img/winner_cake.png'); 
+            
+            /* RUMUS: Lebar bingkai (150px) x 16 frame = 2400px */
+            background-size: 2400px 150px; 
+            background-repeat: no-repeat;
+            background-position-x: 0px; 
+            
+            /* Beri efek cahaya ungu yang meriah */
+            filter: drop-shadow(0 0 15px rgba(176, 92, 255, 0.8));
+        }
+
+        /* Animasi HANYA berjalan saat layar menang muncul */
+        #win-screen:not(.hidden) .win-avatar {
+            /* Dibuat 'infinite' agar sapinya merayakan terus-menerus */
+            animation: winCelebrate 1.5s steps(16) infinite; 
+        }
+
+        @keyframes winCelebrate { 
+            from { background-position-x: 0px; } 
+            to { background-position-x: -2400px; } 
+        }
+
+        /* =========================================
+           OBJEK JATUH (HATI & BOM)
+           ========================================= */
+        .falling-obj { position: absolute; font-size: 2.5rem; z-index: 5; }
+        .heart { filter: drop-shadow(0 0 10px #ff2a5f); }
+        .bomb { filter: drop-shadow(0 0 10px #ffaa00); font-size: 2.2rem; }
+
+        .effect { position: absolute; font-size: 1.5rem; font-weight: bold; pointer-events: none; animation: floatUp 0.8s ease-out forwards; z-index: 15; }
+        .catch-effect { color: #fff; text-shadow: 0 0 10px #b05cff; }
+        .damage-effect { color: #ff2a5f; text-shadow: 0 0 10px #ff0000; font-size: 2rem;}
+
+        @keyframes floatUp { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-50px) scale(1.5); } }
+
+        /* Layar Overlay */
+        .overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(7, 2, 13, 0.85); backdrop-filter: blur(5px);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 20; text-align: center; padding: 20px; transition: opacity 0.3s ease;
+        }
+        .hidden { opacity: 0; pointer-events: none; }
+
+        .btn { padding: 12px 30px; font-size: 1.1rem; font-weight: 600; color: #fff; background-color: #9013fe; border: 2px solid #b05cff; border-radius: 30px; cursor: pointer; box-shadow: 0 0 15px #9013fe; transition: all 0.3s ease; margin-top: 10px;}
+        .btn:hover { transform: scale(1.05); background-color: #b05cff; box-shadow: 0 0 25px #b05cff; }
+        .red-btn { background-color: #ff2a5f; border-color: #ff7a97; box-shadow: 0 0 15px #ff2a5f; }
+        .red-btn:hover { background-color: #ff7a97; box-shadow: 0 0 25px #ff2a5f; }

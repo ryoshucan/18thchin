@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Catch the Hearts!</title>
+    <link rel="icon" href="img/logo ava sapi.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+<div class="game-header">
+        <h1>Catch the Love!</h1>
+        <p>Tangkap 18 hati, hindari bomnya!</p>
+        <div class="stats-container">
+            <div id="score-board">Skor: 0 / 18</div>
+            <div id="lives-board">Nyawa: ❤️❤️❤️</div>
+        </div>
+    </div>
+
+    <div id="game-area">
+        <div id="player-container">
+            <div id="player-sprite" class="idle"></div>
+        </div>
+    </div>
+
+    <div id="start-screen" class="overlay">
+        <h1>Siap Chin ?</h1>
+        <p>Awas ada bom yang jatuh! <br> Tahan sama geser layar kamu buat gerakin atau bisa pakai tombol kanan kiri di laptop</p>
+        <button class="btn" onclick="startGame()">Mulai Game</button>
+    </div>
+
+    <div id="gameover-screen" class="overlay hidden">
+        <h1 style="color: #ff2a5f; text-shadow: 0 0 20px #ff2a5f;">Yahh Meledak! 💥</h1>
+        <p>Nice Try chin coba lagi yaa</p>
+        
+        <div class="bom-avatar"></div>
+
+        <button class="btn red-btn" onclick="startGame()">Coba Lagi</button>
+    </div>
+
+    <div id="win-screen" class="overlay hidden">
+        <h1>Yeayy Berhasil! 💜</h1>
+        <p>Ez banget kan, ahahah aku percaya kamu bisa</p>
+        <p>Sekarang klik tombol dibawah okay</p>
+        <div class="win-avatar"></div>
+        <button class="btn" onclick="window.location.href='home.html'">Buka Kejutan</button>
+    </div>
+
+<script src="js/game.js"></script>
+</body>
+</html>

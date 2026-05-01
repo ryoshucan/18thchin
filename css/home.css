@@ -1,0 +1,950 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tema Background Utama */
+body {
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(circle at center, #1b0a33 0%, #07020d 100%);
+  color: #ebd9ff;
+  overflow: hidden;
+  cursor: pointer;
+  height: 100vh;
+  width: 100vw;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Titik-titik bintang kecil di background */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(#ffffff 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Base Slide Setting */
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.6s ease-in-out;
+  transform: translateY(20px);
+  text-align: center;
+  padding: 20px;
+  z-index: 1;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  z-index: 10;
+}
+h1,
+h2 {
+  color: #ffffff;
+  text-shadow:
+    0 0 10px #b05cff,
+    0 0 20px #9013fe,
+    0 0 30px #9013fe;
+}
+
+/* =========================================
+   SLIDE 1: INTRO MERIAH
+   ========================================= */
+#slide1 {
+  background-image:
+    linear-gradient(rgba(144, 19, 254, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(144, 19, 254, 0.05) 1px, transparent 1px);
+  background-size: 100px 100px;
+}
+
+/* Ikon Kue & Api */
+.cake-icon {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 30px;
+  filter: drop-shadow(0 0 10px #b05cff);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+}
+.slide.active .cake-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+.flame {
+  animation: flicker 0.1s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+@keyframes flicker {
+  0% {
+    transform: scaleY(1) rotate(-1deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1.1) rotate(1deg);
+    opacity: 0.8;
+  }
+}
+
+/* TULISAN HAPPY BIRTHDAY (DIPERBAIKI) */
+#bday-text {
+  font-family: "Caveat", cursive;
+  font-size: 5.5rem;
+  line-height: 1.2;
+  margin: 0 auto;
+  opacity: 0;
+}
+
+/* Animasi Muncul -> Denyut Neon */
+.slide.active #bday-text {
+  animation:
+    popUp 1s ease-out 0.8s forwards,
+    neonPulse 2s ease-in-out 1.8s infinite;
+}
+
+@keyframes popUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes neonPulse {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px #b05cff,
+      0 0 20px #9013fe;
+  }
+  50% {
+    opacity: 1;
+    text-shadow:
+      0 0 20px #b05cff,
+      0 0 40px #9013fe,
+      0 0 60px #ff2a5f;
+  }
+}
+
+/* Hint & Confetti */
+.click-hint {
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: #a685e2;
+  opacity: 0;
+}
+.slide.active .click-hint {
+  animation: hintPulse 1.5s infinite 2.5s forwards;
+}
+@keyframes hintPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #b05cff;
+  opacity: 0.7;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: confettiFall linear infinite forwards;
+}
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-10vh) translateX(0);
+  }
+  100% {
+    transform: translateY(110vh) translateX(50px);
+  }
+}
+
+/* =========================================
+   SLIDE 2: KALENDER & PANAH
+   ========================================= */
+.split-container {
+  display: flex;
+  width: 90%;
+  max-width: 1000px;
+  align-items: center;
+  justify-content: center;
+}
+.split-left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  border-right: 3px solid #5d2299;
+  padding-right: 50px;
+}
+.split-right {
+  flex: 1;
+  font-size: 4rem;
+  font-family: "Caveat", cursive;
+  color: #d4b3ff;
+  padding-left: 50px;
+  text-align: left;
+  text-shadow: 0 0 15px #9013fe;
+  position: relative;
+}
+.calendar-card {
+  background: rgba(22, 7, 43, 0.6);
+  backdrop-filter: blur(5px);
+  border: 1px solid #9013fe;
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow:
+    0 0 30px rgba(144, 19, 254, 0.3),
+    inset 0 0 15px rgba(144, 19, 254, 0.2);
+  width: 380px;
+}
+.cal-month {
+  font-family: "Caveat", cursive;
+  font-size: 3.5rem;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 0 0 15px #9013fe;
+}
+.cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ebd9ff;
+}
+.cal-days .day-name {
+  color: #a685e2;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+.cal-days div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  position: relative;
+}
+
+/* Coretan Kalender */
+.marked {
+  color: #ffffff;
+  font-weight: bold;
+  z-index: 2;
+}
+.marked::before {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 4px solid #ff2a5f;
+  border-radius: 50% 40% 60% 30% / 40% 50% 40% 60%;
+  top: 50%;
+  left: 50%;
+  box-shadow:
+    0 0 12px #ff2a5f,
+    inset 0 0 5px #ff2a5f;
+  transform: translate(-50%, -50%) scale(0) rotate(-30deg);
+  opacity: 0;
+  z-index: -1;
+}
+.slide.active .marked::before {
+  animation: scribbleDraw 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 0.6s;
+}
+@keyframes scribbleDraw {
+  0% {
+    transform: translate(-50%, -50%) scale(0) rotate(-50deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Panah SVG */
+.hand-arrow {
+  position: absolute;
+  width: 400px;
+  height: 250px;
+  left: -330px;
+  top: -10px;
+  z-index: 20;
+  filter: drop-shadow(0 0 8px #ff2a5f);
+  pointer-events: none;
+}
+.arrow-path,
+.arrow-head {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+.slide.active .arrow-path {
+  animation: drawArrow 1.2s ease-in-out forwards;
+  animation-delay: 1.2s;
+}
+.slide.active .arrow-head {
+  animation: drawArrow 0.2s ease-out forwards;
+  animation-delay: 2.3s;
+}
+@keyframes drawArrow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* =========================================
+   SLIDE 3: POLAROID PRINTER
+   ========================================= */
+#slide3 {
+  background-image:
+    linear-gradient(rgba(144, 19, 254, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(144, 19, 254, 0.15) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center center;
+}
+.polaroid-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.printer-system {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+.printer-front {
+  width: 420px;
+  height: 35px;
+  background: linear-gradient(145deg, #381a59, #251040);
+  border-top: 2px solid #b05cff;
+  border-left: 2px solid #b05cff;
+  border-right: 2px solid #b05cff;
+  border-radius: 35px 35px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  z-index: 30;
+}
+.printer-slot-inner {
+  width: 360px;
+  height: 12px;
+  background: #05010a;
+  border-radius: 5px;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 1);
+  margin-bottom: -6px;
+  z-index: 35;
+}
+.printer-back {
+  position: absolute;
+  top: 35px;
+  width: 420px;
+  height: 25px;
+  background: linear-gradient(145deg, #251040, #1b0a33);
+  border-bottom: 2px solid #b05cff;
+  border-left: 2px solid #b05cff;
+  border-right: 2px solid #b05cff;
+  border-radius: 0 0 35px 35px;
+  box-shadow: 0 10px 20px rgba(7, 2, 13, 0.8);
+  z-index: 10;
+}
+.photo-mask {
+  width: 340px;
+  height: 580px;
+  overflow: hidden;
+  position: relative;
+  margin-top: -6px;
+  z-index: 20;
+}
+.polaroid-main {
+  background: #cd2e4d;
+  border: 2px solid #ff7a97;
+  padding: 15px 15px 60px 15px;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 530px;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-110%);
+  transition: transform 0s;
+}
+.polaroid-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid #fff;
+}
+.slide.active .polaroid-main {
+  animation: printPhoto 2.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 0.5s;
+}
+@keyframes printPhoto {
+  0% {
+    transform: translateY(-110%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Dekorasi Foto Samping */
+.polaroid-side {
+  position: absolute;
+    background: #ff2a5f;
+    padding: 10px; /* Padding dikurangi sedikit agar pas */
+    border-radius: 8px;
+    width: 180px;
+    /* Kita kunci tingginya agar tidak memanjang */
+    height: 220px; 
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Pastikan konten mulai dari atas */
+    overflow: hidden; /* Potong bagian yang keluar dari kotak */
+    transition: transform 0.3s ease;
+}
+.polaroid-side img {
+  width: 100%;
+    /* Foto dikunci tingginya agar teks di bawah selalu kelihatan */
+    height: 160px; 
+    object-fit: cover;
+    border-radius: 3px;
+    display: block;
+}
+.polaroid-text {
+  color: white;
+    font-weight: bold;
+    margin-top: 8px; /* Jarak antara foto dan teks */
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem; /* Ukuran teks disesuaikan */
+    line-height: 1; /* Mencegah jarak baris terlalu lebar */
+}
+.polaroid-side.left-top {
+  left: 10%;
+  top: 15%;
+  transform: rotate(-5deg) scale(0.8);
+}
+.polaroid-side.left-bottom {
+  left: 12%;
+  bottom: 15%;
+  transform: rotate(8deg) scale(0.8);
+}
+.polaroid-side.right-top {
+  right: 10%;
+  top: 15%;
+  transform: rotate(5deg) scale(0.8);
+}
+.polaroid-side.right-bottom {
+  right: 12%;
+  bottom: 15%;
+  transform: rotate(-8deg) scale(0.8);
+}
+.slide.active .polaroid-side {
+  opacity: 1;
+}
+.slide.active .polaroid-side.left-top {
+  transform: rotate(-5deg) scale(1);
+  transition-delay: 1.5s;
+}
+.slide.active .polaroid-side.left-bottom {
+  transform: rotate(8deg) scale(1);
+  transition-delay: 1.8s;
+}
+.slide.active .polaroid-side.right-top {
+  transform: rotate(5deg) scale(1);
+  transition-delay: 2.1s;
+}
+.slide.active .polaroid-side.right-bottom {
+  transform: rotate(-8deg) scale(1);
+  transition-delay: 2.4s;
+}
+
+/* =========================================
+   SLIDE 4: AMPLOP & KERTAS BUKU TULIS
+   ========================================= */
+#slide4 {
+  justify-content: flex-end;
+  padding-bottom: 5vh;
+}
+.mail-scene {
+  position: relative;
+  width: 380px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.env-back {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: #1b0a33;
+  border: 2px solid #5d2299;
+  border-radius: 8px;
+  z-index: 10;
+}
+.env-front {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #251040, #1b0a33);
+  border-radius: 8px;
+  clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+  border: 2px solid #5d2299;
+  border-top: none;
+  z-index: 30;
+}
+.env-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: #381a59;
+  border: 2px solid #5d2299;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  z-index: 40;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.slide.active .env-flap {
+  transform: rotateX(180deg);
+  z-index: 5;
+}
+
+.paper-stack {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  width: 85vw;
+  max-width: 600px;
+  transform: translateX(-50%) scale(0.3) translateY(200px);
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+.slide.active .paper-stack {
+  animation: pullOut 2.5s cubic-bezier(0.25, 1, 0.5, 1) 0.8s forwards;
+}
+
+@keyframes pullOut {
+  0% {
+    transform: translateX(-50%) scale(0.3) translateY(100px);
+    opacity: 0;
+    z-index: 20;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) scale(0.4) translateY(-800px);
+    z-index: 20;
+  }
+  51% {
+    z-index: 50;
+  }
+  100% {
+    transform: translateX(-50%) scale(1) translateY(-45vh);
+    z-index: 50;
+    opacity: 1;
+  }
+}
+
+.stacked-paper {
+  position: absolute;
+  width: 100%;
+  /* height: fit-content; */
+  height: auto;
+  max-height: 65vh; /* Batasi maksimal tinggi kertas adalah 65% dari tinggi layar */
+  overflow-y: auto; /* Aktifkan fungsi scroll vertikal */
+  overscroll-behavior: contain; /* Agar saat mentok scroll, background luar tidak ikut terscroll */
+  /* ================== */
+  padding: 40px 40px 40px 60px;
+  background-color: #fdfaf2;
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent 40px,
+      rgba(255, 42, 95, 0.4) 41px,
+      rgba(255, 42, 95, 0.4) 43px,
+      transparent 44px
+    ),
+    repeating-linear-gradient(
+      transparent,
+      transparent 29px,
+      rgba(144, 19, 254, 0.2) 30px
+    );
+  background-size:
+    100% 100%,
+    100% 30px;
+  background-position:
+    0 0,
+    0 35px;
+
+  /* Tambahan agar background garis buku tulis ikut ter-scroll bersama teks */
+  background-attachment: local;
+
+  border-radius: 3px;
+  box-shadow: 2px 5px 25px rgba(0, 0, 0, 0.5);
+  line-height: 30px;
+  text-align: left;
+  color: #2c1a3f;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition:
+    transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.6s ease;
+}
+
+/* =========================================
+   Custom Scrollbar Estetik (Tema Ungu)
+   ========================================= */
+.stacked-paper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.stacked-paper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.stacked-paper::-webkit-scrollbar-thumb {
+  background-color: rgba(
+    176,
+    92,
+    255,
+    0.5
+  ); /* Ungu transparan agar tidak terlalu mencolok */
+  border-radius: 10px;
+}
+
+.stacked-paper::-webkit-scrollbar-thumb:hover {
+  background-color: #9013fe;
+}
+
+.stacked-paper h2 {
+  font-family: "Caveat", cursive;
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #5d2299;
+  text-shadow: none;
+}
+
+#paper1 {
+  z-index: 3; /* Paling atas */
+  transform: rotate(-2deg);
+}
+#paper2 {
+  z-index: 2; /* Di tengah */
+  transform: rotate(2deg) translateX(10px) translateY(10px);
+  background-color: #f9f4e6; /* Warna kertas sedikit lebih kusam karena di bawah */
+}
+#paper3 {
+  z-index: 1; /* Paling bawah */
+  transform: rotate(5deg) translateX(20px) translateY(20px);
+  background-color: #efe8d6; /* Kusam paling gelap */
+}
+
+/* 2. Efek Animasi Kertas Dibuang */
+.tossed {
+  transform: translateX(-150%) rotate(-30deg) translateY(200px) !important;
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* KONDISI A: Jika Kertas 1 dilempar */
+/* Kertas 2 maju jadi kertas utama */
+#paper1.tossed ~ #paper2 {
+  transform: rotate(0deg) translateX(0) translateY(0);
+  background-color: #fdfaf2;
+  box-shadow: 2px 10px 35px rgba(0, 0, 0, 0.6);
+  z-index: 10; /* TAMBAHKAN BARIS INI */
+}
+
+/* KONDISI B: Jika Kertas 2 ikut dilempar */
+/* Kertas 3 maju jadi kertas utama */
+#paper2.tossed ~ #paper3 {
+  transform: rotate(0deg) translateX(0) translateY(0);
+  background-color: #fdfaf2;
+  box-shadow: 2px 10px 35px rgba(0, 0, 0, 0.6);
+  z-index: 10; /* TAMBAHKAN BARIS INI */
+}
+
+/* =========================================
+   SLIDE 5: PENUTUP (SAD / MELANCHOLIC VIBE)
+   ========================================= */
+#slide5 {
+  /* Mengubah background menjadi lebih gelap & hampa */
+  background: radial-gradient(circle at center, #10061f 0%, #030105 100%);
+}
+
+.sad-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(200, 162, 200, 0.05)
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sad-img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(200, 162, 200, 0.3); /* Garis warna lilac redup */
+  box-shadow: 0 0 20px rgba(200, 162, 200, 0.1);
+  margin-bottom: 25px;
+  filter: grayscale(40%) brightness(0.7); /* Efek sedih memudar pada foto */
+  position: relative;
+  z-index: 10;
+  transition: all 1s ease;
+}
+
+.sad-title {
+  font-family: "Caveat", cursive;
+  font-size: 3.2rem;
+  margin-bottom: 10px;
+  color: #dcd0ff;
+  text-shadow: 0 0 10px rgba(200, 162, 200, 0.3);
+  position: relative;
+  z-index: 10;
+  font-weight: normal;
+}
+
+.sad-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #937da8;
+  margin-bottom: 40px;
+  max-width: 500px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Menonjolkan kata "lilac" */
+.lilac-glow {
+  color: #c8a2c8;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(200, 162, 200, 0.8);
+  letter-spacing: 1px;
+}
+
+/* Tombol Lilac yang misterius */
+.btn-lilac {
+  background-color: transparent;
+  border: 2px solid #c8a2c8;
+  color: #c8a2c8;
+  box-shadow: 0 0 15px rgba(200, 162, 200, 0.2);
+  letter-spacing: 4px;
+  padding: 10px 40px;
+}
+
+.btn-lilac:hover {
+  background-color: #c8a2c8;
+  color: #1b0a33;
+  box-shadow: 0 0 25px rgba(200, 162, 200, 0.6);
+  transform: scale(1.05);
+}
+
+/* =========================================
+   OPTIMASI MOBILE (HP) 
+   ========================================= */
+@media (max-width: 600px) {
+  #bday-text {
+    font-size: 3.8rem;
+  }
+  .cake-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+
+  .split-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .split-left {
+    justify-content: center;
+    border-right: none;
+    border-bottom: 2px solid #5d2299;
+    padding: 0 0 25px 0;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  .calendar-card {
+    width: 280px;
+    padding: 20px;
+  }
+  .cal-month {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  .cal-days {
+    font-size: 1rem;
+    gap: 8px;
+  }
+  .cal-days div {
+    height: 30px;
+  }
+  .marked::before {
+    width: 38px;
+    height: 38px;
+    border-width: 3px;
+  }
+  .split-right {
+    font-size: 2rem;
+    padding: 0;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .hand-arrow {
+    width: 250px;
+    height: 180px;
+    left: 10px;
+    top: -140px;
+    transform: rotate(50deg) scale(0.8);
+  }
+
+  .printer-front {
+    width: 220px;
+    height: 18px;
+  }
+  .printer-back {
+    width: 220px;
+    height: 17px;
+    top: 18px;
+  }
+  .printer-slot-inner {
+    width: 180px;
+    height: 8px;
+    margin-bottom: -4px;
+  }
+  .photo-mask {
+    width: 180px;
+    height: 300px;
+    margin-top: -4px;
+  }
+  .polaroid-main {
+    height: 270px;
+    padding: 10px 10px 35px 10px;
+  }
+  .polaroid-main .polaroid-text {
+    margin-top: -25px;
+    font-size: 1.2rem;
+  }
+
+  .polaroid-side {
+        display: flex !important;
+        width: 100px !important; 
+        /* Di HP tingginya juga dikunci agar tidak lonjong */
+        height: 130px !important; 
+        padding: 5px !important;
+        z-index: 1; 
+    }
+
+    .polaroid-side img {
+        /* Tinggi foto di HP diperkecil */
+        height: 90px !important; 
+    }
+
+    .polaroid-side .polaroid-text {
+        font-size: 0.75rem !important; 
+        margin-top: 4px !important;
+        line-height: 1 !important;
+    }
+
+    /* Posisinya didorong lebih ke ujung layar agar tidak menumpuk */
+    .polaroid-side.left-top { top: 4%; left: -2%; transform: rotate(-15deg); }
+    .polaroid-side.right-top { top: 6%; right: -2%; transform: rotate(15deg); }
+    .polaroid-side.left-bottom { bottom: 4%; left: -2%; transform: rotate(-12deg); }
+    .polaroid-side.right-bottom { bottom: 6%; right: -2%; transform: rotate(18deg); }
+
+    .printer-system {
+        transform: scale(0.8); /* Diperkecil lagi sedikit agar lega */
+    }
+
+.mail-scene {
+  width: 280px;
+  height: 180px;
+}
+.paper-stack {
+  width: 92vw;
+}
+.stacked-paper {
+  padding: 25px 20px 25px 45px;
+  font-size: 1rem;
+  line-height: 30px;
+  background-size:
+    100% 100%,
+    100% 30px;
+}
+.stacked-paper h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+/* CSS HP untuk Slide 5 */
+.sad-img {
+  width: 140px;
+  height: 140px;
+}
+.sad-title {
+  font-size: 2.5rem;
+}
+.sad-text {
+  font-size: 0.95rem;
+}
+}

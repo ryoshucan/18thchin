@@ -1,30 +1,286 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="img/flowers.png" type="image/x-icon">
-    <title>Flowers</title>
-</head>
-<body>
-    <div class="greetings">
-    <!-- silahkan menambah kata sesuai keinginan dengan <span>text...</span -->
-        <span>H</span>
-        <span>A</span>
-        <span>L</span>
-        <span>L</span>
-        <span>O</span>
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Happy Birthday!</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;600&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Tema Background Senada dengan Game */
+      body {
+        font-family: "Poppins", sans-serif;
+        background: radial-gradient(circle at center, #1b0a33 0%, #07020d 100%);
+        color: #ebd9ff;
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+      }
+
+      /* Titik-titik bintang kecil di background */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: radial-gradient(#ffffff 1px, transparent 1px);
+        background-size: 40px 40px;
+        opacity: 0.05;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      /* Kontainer Utama */
+      .intro-box {
+        position: relative;
+        z-index: 10;
+        background: rgba(22, 7, 43, 0.6);
+        backdrop-filter: blur(5px);
+        border: 1px solid #9013fe;
+        border-radius: 20px;
+        padding: 50px 30px;
+        max-width: 550px;
+        box-shadow:
+          0 0 30px rgba(144, 19, 254, 0.3),
+          inset 0 0 15px rgba(144, 19, 254, 0.2);
+        animation: float 4s ease-in-out infinite;
+      }
+
+      h1 {
+        font-family: "Caveat", cursive;
+        font-size: 4.5rem;
+        color: #ffffff;
+        text-shadow:
+          0 0 10px #b05cff,
+          0 0 20px #9013fe;
+        margin-bottom: 10px;
+        opacity: 0;
+        animation:
+          popUp 1s ease-out 0.5s forwards,
+          neonPulse 2s ease-in-out 1.5s infinite;
+      }
+
+      p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #d4b3ff;
+        margin-bottom: 35px;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 1.2s forwards;
+      }
+
+      /* =========================================
+           TOMBOL ICON GAMEPAD NEON
+           ========================================= */
+      .btn-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto; /* Taruh di tengah */
+        width: 75px;
+        height: 75px;
+        background-color: rgba(255, 42, 95, 0.2);
+        border: 2px solid #ff7a97;
+        border-radius: 50%; /* Bentuk lingkaran sempurna */
+        cursor: pointer;
+        box-shadow: 0 0 20px #ff2a5f;
+        opacity: 0;
+        animation:
+          fadeIn 1s ease-out 2s forwards,
+          /* Animasi muncul */ pulseBtn 2s infinite 2.5s; /* Animasi berdenyut membesar */
+        transition: all 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* SVG Icon di dalam tombol */
+      .btn-icon svg {
+        width: 40px;
+        height: 40px;
+        fill: #ffffff;
+        filter: drop-shadow(0 0 5px #ffffff);
+        transition: all 0.3s ease;
+      }
+
+      /* Efek Hover saat disentuh/kursor di atasnya */
+      .btn-icon:hover {
+        transform: scale(1.15);
+        background-color: #ff2a5f;
+        box-shadow:
+          0 0 35px #ff2a5f,
+          0 0 15px #ffffff;
+      }
+
+      /* Animasi */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+      @keyframes popUp {
+        0% {
+          opacity: 0;
+          transform: translateY(30px) scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes neonPulse {
+        0%,
+        100% {
+          text-shadow:
+            0 0 10px #b05cff,
+            0 0 20px #9013fe;
+        }
+        50% {
+          text-shadow:
+            0 0 20px #b05cff,
+            0 0 40px #9013fe,
+            0 0 60px #b05cff;
+        }
+      }
+      @keyframes pulseBtn {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 20px #ff2a5f;
+        }
+        50% {
+          transform: scale(1.08);
+          box-shadow: 0 0 35px #ff2a5f;
+        }
+      }
+
+      /* Hujan Confetti */
+      .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #b05cff;
+        opacity: 0.7;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: confettiFall linear infinite;
+      }
+      @keyframes confettiFall {
+        0% {
+          transform: translateY(-10vh) translateX(0);
+        }
+        100% {
+          transform: translateY(110vh) translateX(50px);
+        }
+      }
+
+      /* Versi HP */
+      @media (max-width: 600px) {
+        .intro-box {
+          padding: 40px 20px;
+          width: 90%;
+        }
+        h1 {
+          font-size: 3.5rem;
+        }
+        p {
+          font-size: 1rem;
+        }
+        .btn-icon {
+          width: 65px;
+          height: 65px;
+        }
+        .btn-icon svg {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="intro-box">
+      <!-- <h1>Happy Birthday!</h1> -->
+      <p>
+        Hai Chin! Gimana kabarnya? 
+        <br>Ga kerasa udah 2 bulan aja, Semoga baik-baik aja yaa. <br />
+        <br />
+        Ini aku ada kado kecil buat ultah kamu kemarin. Telat beberapa hari nggak
+        apa-apa kan? Hehe :p <br />
+        <br />
+        Eits, tapi ntar dulu! Sebelum bisa buka kado utamanya, kamu harus
+        lewatin tantangan dari aku okay. Mainin mini-game di bawah ini dulu yaa,
+        gampang banget chin ezpz !
+        <br />
+        <br />Langsung klik tombolnya ya! 🎮✨
+      </p>
+
+      <button
+        class="btn-icon"
+        onclick="window.location.href = 'game.html'"
+        aria-label="Mainkan Game"
+      >
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M21,6H3C1.343,6,0,7.343,0,9v6c0,1.657,1.343,3,3,3h3l2-2h8l2,2h3c1.657,0,3-1.343,3-3V9C24,7.343,22.657,6,21,6z M9,13H7v2H5v-2H3v-2h2V9h2v2h2V13z M15.5,14 c-0.828,0-1.5-0.672-1.5-1.5s0.672-1.5,1.5-1.5s1.5,0.672,1.5,1.5S16.328,14,15.5,14z M18.5,11c-0.828,0-1.5-0.672-1.5-1.5 s0.672-1.5,1.5-1.5s1.5,0.672,1.5,1.5S19.328,11,18.5,11z"
+          />
+        </svg>
+      </button>
     </div>
-    <div class="description">
-        <span>Aku ada hadiah spesial buat kamu!!</span>
-    </div>
-    <div class="button">
-        <button>
-            <a href="flower.html">Klik disini</a>
-        </button>
-        
-    </div>
-</body>
+
+    <script>
+      // Mesin pembuat hujan confetti
+      function createConfetti() {
+        for (let i = 0; i < 25; i++) {
+          const confetti = document.createElement("div");
+          confetti.classList.add("confetti");
+          confetti.style.left = Math.random() * 100 + "vw";
+          const size = Math.random() * 10 + 5 + "px";
+          confetti.style.width = size;
+          confetti.style.height = size;
+          confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+          const colors = ["#b05cff", "#ff2a5f", "#ebd9ff"];
+          confetti.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+
+          document.body.appendChild(confetti);
+
+          setTimeout(() => {
+            confetti.remove();
+          }, 5000);
+        }
+      }
+      createConfetti();
+      setInterval(createConfetti, 3000);
+    </script>
+  </body>
 </html>
